@@ -35,7 +35,7 @@ const generateHeadTag = (meta: Meta, config: UnrewriteConfig): string => {
       property: "twitter:site",
       content: `@${config.twitterUserName}`,
     }),
-    h("style", { rel: "stylesheet", href: "style.css" }),
+    h("link", { rel: "stylesheet", href: "style.css" }),
   );
 };
 
