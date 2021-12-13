@@ -30,6 +30,7 @@ const generateHeadTag = (meta: Meta, config: UnrewriteConfig): string => {
     }),
     h("meta", { property: "og:description", content: meta.description }),
     h("meta", { property: "og:site_name", content: config.title }),
+    h("meta", { property: "og:image", content: config.ogpImage ?? "" }),
     h("meta", { property: "twitter:card", content: "summary" }),
     h("meta", {
       property: "twitter:site",
