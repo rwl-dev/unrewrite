@@ -1,0 +1,16 @@
+scripts:
+  dev:
+    desc: Runs the server
+    cmd: deno run sample/server.ts
+    allow:
+      - read
+      - net
+    watch: true
+  test:
+    desc: Runs test
+    cmd: deno test
+    allow:
+      - read
+  fmt:
+    desc: Format code
+    cmd: deno fmt --ignore=README.md,sample/front.md,sample/novels/
