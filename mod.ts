@@ -16,12 +16,8 @@ const responseInit: ResponseInit = {
 export const handler: Handler = async (req) => {
   const { pathname } = new URL(req.url);
 
-  console.log(pathname);
-
   if (pathname.startsWith("/style.css")) {
-    console.log("response");
-
-    /** これはDeno Deploy上でしか確認できない */
+    // TODO: sample/assets/配下のCSSファイルを直に参照しているため、ここもユーザーインジェクションできるようにする
     const file = await Deno.readFile("./sample/assets/style.css");
     return new Response(file, {
       headers: {
@@ -42,10 +38,6 @@ export const handler: Handler = async (req) => {
   }
 
   for (const novelData of novelDataList) {
-    // const novelPattern = new URLPattern({ pathname: '/novels' })
-    // 遷移条件：URLがルートだった場合、frontを表示
-    // 遷移条件：URLがnovel/配下かつnew URL(req.url).pathnameがnovelData.pathに合致する場合、該当のmarkdownデータを出す
-    // 遷移条件：それ以外の場合、404ページに遷移
     if (
       pathname.includes(novelData!.path)
     ) {
