@@ -33,9 +33,13 @@ const generateHeadTag = (meta: Meta, config: UnrewriteConfig): string => {
   );
 };
 
-const generateBodyTag = (content: string): string => {
+const generateHeaderTag = (config: UnrewriteConfig): string =>
+  h("header", h("h1", config.title));
+
+const generateBodyTag = (config: UnrewriteConfig, content: string): string => {
   return h(
     "body",
+    generateHeaderTag(config),
     h("main", content),
   );
 };
@@ -43,7 +47,7 @@ const generateBodyTag = (content: string): string => {
 export const generateNotFoundContents = (): string =>
   h(
     "section",
-    h("h1", "404 Not Found"),
+    h("h2", "404 Not Found"),
     h("p", "このページにはコンテンツはありませんでした。TOPページに戻って探し直してください。"),
     h("a", { href: "/" }, "TOPページへ"),
   );
@@ -56,7 +60,7 @@ export const renderHTML = (
   const html = h(
     "html",
     generateHeadTag(meta, config),
-    generateBodyTag(content),
+    generateBodyTag(config, content),
   );
   return `<!DOCTYPE html>
   ${html}`;

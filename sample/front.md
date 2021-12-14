@@ -2,7 +2,6 @@
 description: 'Deno novel hosting module(WIP)'
 ---
 
-# UnRewrite
 このモジュールは、個人向けセルフホスティング型小説投稿モジュールです。名前はアンモナイトが基で、そこから小説に関係ありそうな単語に変えたものになります。書き直す手間を最大限に減らすことを目標としています。  
 小説データは`baseDir`で定義されたMarkdownファイルから取得され、TOPページのみ`baseDir`外の`front.md`に記述する必要があります。
 
