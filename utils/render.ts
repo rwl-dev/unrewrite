@@ -3,7 +3,7 @@ import type { HTMLElementTagNameMap, UnrewriteConfig } from "../model.ts";
 import type { Meta } from "./getData.ts";
 
 const h = tag as (
-  tagName: keyof HTMLElementTagNameMap,
+  tagName: HTMLElementTagNameMap,
   attributesOrFirstChild?:
     | string
     | Record<string, string | number | boolean>
