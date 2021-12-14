@@ -4,6 +4,10 @@ import type { Meta } from "./getData.ts";
 
 const h = tag as Tag;
 
+/** 第一引数がundefinedの場合、第二引数のHTMLタグを表示しない */
+const showTag = (key: string | undefined, tag: string): string =>
+  `${key && tag}`;
+
 const generateHeadTag = (meta: Meta, config: UnrewriteConfig): string => {
   return h(
     "head",
@@ -23,12 +27,18 @@ const generateHeadTag = (meta: Meta, config: UnrewriteConfig): string => {
     }),
     h("meta", { property: "og:description", content: meta.description }),
     h("meta", { property: "og:site_name", content: config.title }),
-    h("meta", { property: "og:image", content: config.ogpImage ?? "" }),
+    showTag(
+      config.ogpImage,
+      h("meta", { property: "og:image", content: `${config.ogpImage}` }),
+    ),
     h("meta", { property: "twitter:card", content: "summary" }),
-    h("meta", {
-      property: "twitter:site",
-      content: `@${config.twitterUserName}`,
-    }),
+    showTag(
+      config.twitterUserName,
+      h("meta", {
+        property: "twitter:site",
+        content: `@${config.twitterUserName}`,
+      }),
+    ),
     h("link", { rel: "stylesheet", href: "style.css" }),
   );
 };
