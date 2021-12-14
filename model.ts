@@ -282,7 +282,7 @@ type HTMLSvgElementTagNameMap =
   | "zoomAndPan";
 
 /** HTML要素名の定義マップ */
-export type HTMLElementTagNameMap =
+type HTMLElementTagNameMap =
   | "a"
   | "abbr"
   | "address"
@@ -403,3 +403,16 @@ export type HTMLElementTagNameMap =
   | "var"
   | "video"
   | "wbr" & HTMLSvgElementTagNameMap;
+
+type Attribute = Record<string, string | number | boolean>;
+
+type Text = string;
+
+export type Tag = (
+  tagName: HTMLElementTagNameMap,
+  attributesOrFirstChild:
+    | Tag
+    | Attribute
+    | Text,
+  ...children: Tag[] | Text[]
+) => string;

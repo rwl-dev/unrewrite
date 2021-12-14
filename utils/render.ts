@@ -1,15 +1,8 @@
 import { tag } from "../deps.ts";
-import type { HTMLElementTagNameMap, UnrewriteConfig } from "../model.ts";
+import type { Tag, UnrewriteConfig } from "../model.ts";
 import type { Meta } from "./getData.ts";
 
-const h = tag as (
-  tagName: HTMLElementTagNameMap,
-  attributesOrFirstChild?:
-    | string
-    | Record<string, string | number | boolean>
-    | undefined,
-  ...children: string[]
-) => string;
+const h = tag as Tag;
 
 const generateHeadTag = (meta: Meta, config: UnrewriteConfig): string => {
   return h(
