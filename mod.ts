@@ -18,7 +18,7 @@ export const handler: Handler = async (req) => {
 
   if (pathname.startsWith("/style.css")) {
     // TODO: sample/assets/配下のCSSファイルを直に参照しているため、ここもユーザーインジェクションできるようにする
-    const file = await Deno.readFile("./sample/assets/style.css");
+    const file = await Deno.readFile("./assets/style.css");
     return new Response(file, {
       headers: {
         "content-type": "text/css",
