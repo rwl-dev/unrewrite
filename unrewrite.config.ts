@@ -1,7 +1,7 @@
 import type { UnrewriteConfig } from "./model.ts";
 
 const config: UnrewriteConfig = {
-  title: "UnRewrite Sample Pages",
+  title: "UnRewrite",
   titleTemplate: (title) => title ? `${title} | ${config.title}` : config.title,
   baseDir: "sample",
   baseNovelDir: "novels",
