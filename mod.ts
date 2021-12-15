@@ -41,7 +41,14 @@ export const handler: Handler = async (req) => {
     if (
       pathname.includes(novelData!.path)
     ) {
-      return new Response(req.url);
+      return new Response(
+        renderHTML(
+          novelData!.meta,
+          mergeConfig(await userConfig),
+          novelData!.content,
+        ),
+        responseInit,
+      );
     }
   }
 
