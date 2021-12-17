@@ -18,6 +18,11 @@ export interface UnrewriteConfig {
    * アットマーク(@)は先頭に入れなくていい
    */
   twitterUserName?: string;
+  /**
+   * 上書きするCSSファイルパス
+   * この設定を有効化することで既存のスタイルをすべて非適用にできる
+   */
+  overwriteCss?: string;
 }
 
 /** SVG固有の要素名定義マップ */
