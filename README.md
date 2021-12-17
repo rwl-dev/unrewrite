@@ -1,16 +1,15 @@
 # UnRewrite
-【English / 日本語】
+【日本語 / English】
 
-アイコンイメージはアンモナイトの殻から万年筆の頭が生えている。
+本モジュールは、Deno製の小説投稿サイト構築モジュールになります。  
+投稿するデータは設定ファイルで指定されたフォルダ配下のMarkdownファイルから取得します。ユーザーはMarkdownファイルを作成し、そのフォルダ配下に配置してGitHub上に上げるだけでOKです。  
+Deno Deployでの利用を前提に制作されています。
 
-UnRewriteは、アンモナイトのように文字の大海を泳いでほしいという想いから生まれました。
-
-## 必要なもの（required）
+## 必要なもの
 - GitHubアカウント
-- 
+- Deno本体
 
-## 構築手順（Usage）
+## 構築手順
 
-## 影響を受けたプロダクト（inspire）
-- minista
-- diplodocus
+## 影響を受けたプロダクト
+- [Diplodocus](https://github.com/kawarimidoll/deno-diplodocus)
