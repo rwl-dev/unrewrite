@@ -8,7 +8,7 @@ export interface Meta {
   description: string;
 }
 
-export const novelUrlList = await getFileList(
+const novelUrlList = await getFileList(
   resolve(
     Deno.cwd(),
     mergeConfig(await userConfig).baseDir || unrewriteConfig.baseDir,
