@@ -10,6 +10,7 @@ const defaultConfig: Required<UnrewriteConfig> = {
   icon: "https://twemoji.maxcdn.com/v/13.1.0/72x72/1f995.png",
   ogpImage: "https://twemoji.maxcdn.com/v/13.1.0/72x72/1f995.png",
   twitterUserName: "windchime_yk",
+  overwriteCss: "",
 };
 
 export const userConfig: Promise<UnrewriteConfig> = import(

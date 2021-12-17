@@ -2,7 +2,11 @@ import type { Handler } from "./deps.ts";
 import { userConfig } from "./utils/config.ts";
 import { getFrontData, novelDataList } from "./utils/getData.ts";
 import { mergeConfig } from "./utils/mergeConfig.ts";
-import { generateNotFoundContents, renderHTML } from "./utils/render.ts";
+import {
+  detectStylePath,
+  generateNotFoundContents,
+  renderHTML,
+} from "./utils/render.ts";
 
 const responseInit: ResponseInit = {
   headers: { "content-type": "text/html" },
@@ -15,10 +19,11 @@ const responseInit: ResponseInit = {
  */
 export const handler: Handler = async (req) => {
   const { pathname } = new URL(req.url);
+  const mergedConfig = mergeConfig(await userConfig);
 
   if (pathname.startsWith("/style.css")) {
     // TODO: sample/assets/配下のCSSファイルを直に参照しているため、ここもユーザーインジェクションできるようにする
-    const file = await Deno.readFile("./assets/style.css");
+    const file = await Deno.readFile(detectStylePath(mergedConfig));
     return new Response(file, {
       headers: {
         "content-type": "text/css",
@@ -30,7 +35,7 @@ export const handler: Handler = async (req) => {
     return new Response(
       renderHTML(
         (await getFrontData()).meta,
-        mergeConfig(await userConfig),
+        mergedConfig,
         (await getFrontData()).content,
       ),
       responseInit,
@@ -44,7 +49,7 @@ export const handler: Handler = async (req) => {
       return new Response(
         renderHTML(
           novelData!.meta,
-          mergeConfig(await userConfig),
+          mergedConfig,
           novelData!.content,
         ),
         responseInit,
@@ -58,7 +63,7 @@ export const handler: Handler = async (req) => {
         title: "404 Not Found",
         description: "このURLにコンテンツはありません",
       },
-      mergeConfig(await userConfig),
+      mergedConfig,
       generateNotFoundContents(),
     ),
     responseInit,

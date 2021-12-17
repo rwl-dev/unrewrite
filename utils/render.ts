@@ -1,4 +1,4 @@
-import { tag } from "../deps.ts";
+import { resolve, tag } from "../deps.ts";
 import type { Tag, UnrewriteConfig } from "../model.ts";
 import type { Meta } from "./getData.ts";
 
@@ -7,6 +7,11 @@ const h = tag as Tag;
 /** 第一引数がundefinedの場合、第二引数のHTMLタグを表示しない */
 const showTag = (key: string | undefined, tag: string): string =>
   `${key && tag}`;
+
+export const detectStylePath = (config: UnrewriteConfig) =>
+  config.overwriteCss
+    ? resolve(Deno.cwd(), config.overwriteCss)
+    : "./assets/style.css";
 
 const generateHeadTag = (meta: Meta, config: UnrewriteConfig): string => {
   return h(
