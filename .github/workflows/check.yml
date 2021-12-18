@@ -23,4 +23,4 @@ jobs:
       - name: Unit Test
         run: vr test
       - name: E2E Test
-        run: deno test test/e2e/ --allow-net --allow-run --config ./tsconfig.json
+        run: deno test test/e2e/ --allow-net --allow-run
