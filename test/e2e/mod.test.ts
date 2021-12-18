@@ -1,3 +1,8 @@
+/// <reference no-default-lib="true" />
+/// <reference lib="dom" />
+/// <reference lib="dom.asynciterable" />
+/// <reference lib="deno.ns" />
+
 import { assertEquals, buildFor } from "../../deps.ts";
 
 Deno.test("Go to 404 page", async () => {
