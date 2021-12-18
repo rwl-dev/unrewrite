@@ -1,3 +1,4 @@
+import { resolve } from "./deps.ts";
 import type { Handler } from "./deps.ts";
 import { userConfig } from "./utils/config.ts";
 import { getFrontData, novelDataList } from "./utils/getData.ts";
@@ -8,9 +9,9 @@ import {
   renderHTML,
 } from "./utils/render.ts";
 
-const responseInit: ResponseInit = {
-  headers: { "content-type": "text/html" },
-};
+const responseInit = (contentType: string): ResponseInit => ({
+  headers: { "content-type": contentType },
+});
 
 /**
  * UnRewriteのハンドラー関数。
@@ -22,13 +23,32 @@ export const handler: Handler = async (req) => {
   const mergedConfig = mergeConfig(await userConfig);
 
   if (pathname.startsWith("/style.css")) {
-    // TODO: sample/assets/配下のCSSファイルを直に参照しているため、ここもユーザーインジェクションできるようにする
-    const file = await Deno.readFile(detectStylePath(mergedConfig));
-    return new Response(file, {
+    const styleFile = await Deno.readFile(detectStylePath(mergedConfig));
+    return new Response(styleFile, {
       headers: {
         "content-type": "text/css",
       },
     });
+  }
+
+  const imagePathUrlPattern = new URLPattern({ pathname: "/images/:path" });
+  const imagePathUrlPathname =
+    imagePathUrlPattern.exec(req.url)?.pathname.groups.path;
+  const imagePathArray = imagePathUrlPathname?.split(".") ?? [];
+  const imageFile = await Deno.readFile(
+    resolve(Deno.cwd(), "images", imagePathUrlPathname ?? ""),
+  );
+  if (
+    imagePathUrlPattern.test(req.url) && imagePathArray[1] === "jpg" ||
+    imagePathArray[1] === "jpeg"
+  ) {
+    return new Response(imageFile, responseInit("image/jpeg"));
+  }
+  if (imagePathUrlPattern.test(req.url) && imagePathArray[1] === "png") {
+    return new Response(imageFile, responseInit("image/png"));
+  }
+  if (imagePathUrlPattern.test(req.url) && imagePathArray[1] === "svg") {
+    return new Response(imageFile, responseInit("image/svg+xml"));
   }
 
   if (pathname === "/") {
@@ -38,7 +58,7 @@ export const handler: Handler = async (req) => {
         mergedConfig,
         (await getFrontData()).content,
       ),
-      responseInit,
+      responseInit("text/html"),
     );
   }
 
@@ -52,7 +72,7 @@ export const handler: Handler = async (req) => {
           mergedConfig,
           novelData!.content,
         ),
-        responseInit,
+        responseInit("text/html"),
       );
     }
   }
@@ -66,6 +86,6 @@ export const handler: Handler = async (req) => {
       mergedConfig,
       generateNotFoundContents(),
     ),
-    responseInit,
+    responseInit("text/html"),
   );
 };
