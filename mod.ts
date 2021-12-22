@@ -1,4 +1,4 @@
-import { resolve, getFileList } from "./deps.ts";
+import { getFileList, resolve } from "./deps.ts";
 import type { Handler } from "./deps.ts";
 import { userConfig } from "./utils/config.ts";
 import { getFrontData, novelDataList } from "./utils/getData.ts";
@@ -35,8 +35,8 @@ export const handler: Handler = async (req) => {
   const imagePathUrlPathname =
     imagePathUrlPattern.exec(req.url)?.pathname.groups.path;
   const imagePathArray = imagePathUrlPathname?.split(".") ?? [];
-  const imageDir = resolve(Deno.cwd(), "sample", "images")
-  const imageList = await getFileList(imageDir)
+  const imageDir = resolve(Deno.cwd(), "sample", "images");
+  const imageList = await getFileList(imageDir);
 
   for (const image of imageList) {
     if (imagePathUrlPattern.test(req.url) && req.url.includes(image.name)) {
