@@ -1,4 +1,4 @@
-import { resolve } from "./deps.ts";
+import { resolve, getFileList } from "./deps.ts";
 import type { Handler } from "./deps.ts";
 import { userConfig } from "./utils/config.ts";
 import { getFrontData, novelDataList } from "./utils/getData.ts";
@@ -35,20 +35,26 @@ export const handler: Handler = async (req) => {
   const imagePathUrlPathname =
     imagePathUrlPattern.exec(req.url)?.pathname.groups.path;
   const imagePathArray = imagePathUrlPathname?.split(".") ?? [];
-  const imageFile = await Deno.readFile(
-    resolve(Deno.cwd(), "images", imagePathUrlPathname ?? ""),
-  );
-  if (
-    imagePathUrlPattern.test(req.url) && imagePathArray[1] === "jpg" ||
-    imagePathArray[1] === "jpeg"
-  ) {
-    return new Response(imageFile, responseInit("image/jpeg"));
-  }
-  if (imagePathUrlPattern.test(req.url) && imagePathArray[1] === "png") {
-    return new Response(imageFile, responseInit("image/png"));
-  }
-  if (imagePathUrlPattern.test(req.url) && imagePathArray[1] === "svg") {
-    return new Response(imageFile, responseInit("image/svg+xml"));
+  const imageDir = resolve(Deno.cwd(), "sample", "images")
+  const imageList = await getFileList(imageDir)
+
+  for (const image of imageList) {
+    if (imagePathUrlPattern.test(req.url) && req.url.includes(image.name)) {
+      const imageFile = await Deno.readFile(
+        // TODO: 現在、sampleを直に指定しているので、パス分岐の改善を行なう
+        resolve(Deno.cwd(), "sample", "images", imagePathUrlPathname ?? ""),
+      );
+
+      if (imagePathArray[1] === "jpg" || imagePathArray[1] === "jpeg") {
+        return new Response(imageFile, responseInit("image/jpeg"));
+      }
+      if (imagePathArray[1] === "png") {
+        return new Response(imageFile, responseInit("image/png"));
+      }
+      if (imagePathArray[1] === "svg") {
+        return new Response(imageFile, responseInit("image/svg+xml"));
+      }
+    }
   }
 
   if (pathname === "/") {
