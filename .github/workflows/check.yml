@@ -22,5 +22,16 @@ jobs:
         run: deno fmt --check --ignore=README.md,.github/,sample/
       - name: Unit Test
         run: vr test
+      - uses: actions/github-script@v3
+        id: get-preview-url
+        with:
+          script: |
+            const commitStatus = await github.repos.listCommitStatusesForRef({
+              owner: "windchime-yk",
+              repo: "unrewrite",
+              ref: context.payload.after,
+            })
+            const { data } = await commitStatus
+            return data[0].target_url
       - name: E2E Test
-        run: deno test test/e2e/ --allow-net --allow-run
+        run: BASE_URL=${{ steps.get-preview-url.outputs.result }} deno test --allow-net --allow-run --allow-env test/e2e/

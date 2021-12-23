@@ -15,7 +15,7 @@ const launchSinco = async (
   return { sinco, page };
 };
 
-const BASE_URL = "https://unrewrite-sample.deno.dev";
+const BASE_URL = Deno.env.get("BASE_URL");
 
 Deno.test("Go to 404 page", async () => {
   const { sinco, page } = await launchSinco({
