@@ -17,6 +17,17 @@ const launchSinco = async (
 
 const BASE_URL = Deno.env.get("BASE_URL");
 
+Deno.test("Go to novel page", async () => {
+  const { sinco, page } = await launchSinco({
+    url: `${BASE_URL}/wagahaihanekodearu/01"`,
+  });
+  const pageTitle: string = await page.evaluate(() => {
+    return document.querySelector("h2")?.innerText;
+  });
+  assertEquals(pageTitle, "吾輩は猫である");
+  await sinco.done();
+});
+
 Deno.test("Go to 404 page", async () => {
   const { sinco, page } = await launchSinco({
     url: `${BASE_URL}/hogehoge"`,
