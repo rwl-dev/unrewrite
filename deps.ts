@@ -6,5 +6,9 @@ export { serve } from "https://deno.land/std@0.117.0/http/server.ts";
 export type { Handler } from "https://deno.land/std@0.117.0/http/server.ts";
 
 // Testing dependencies
-export { assertEquals } from "https://deno.land/std@0.110.0/testing/asserts.ts";
+export {
+  assertEquals,
+  assertStringIncludes,
+} from "https://deno.land/std@0.110.0/testing/asserts.ts";
 export { buildFor } from "https://deno.land/x/sinco@v3.0.0/mod.ts";
+export type { Browsers } from "https://deno.land/x/sinco@v3.0.0/src/types.ts";
