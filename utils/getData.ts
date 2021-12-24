@@ -42,8 +42,6 @@ export const getFrontData = async () => {
   };
 };
 
-export const getStyleData = () => {};
-
 // NOTE: Promise.allよりPromise.allSettedのほうがよいが、ファイル読み込みのためrejectedされることが少なそうということと、TypeScript実行時にvalueがないという警告が出るためPromise.allで実装する
 /**
  * 小説データを全件取得する
