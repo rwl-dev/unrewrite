@@ -10,6 +10,7 @@ export const userConfig: Required<UnrewriteConfig> = {
   twitterUserName: "windchime_yk",
   overwriteCss: "",
 };
+
 export const partialUserConfig: UnrewriteConfig = {
   title: "Test Utils",
   titleTemplate: (title) => `${title} - ${partialUserConfig.title}`,

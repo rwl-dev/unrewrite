@@ -11,6 +11,7 @@ Deno.test(renderHTML.name, () => {
     userConfig,
     "テスト",
   );
+
   assertEquals<string>(
     render,
     `<!DOCTYPE html>
