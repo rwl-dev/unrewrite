@@ -1,35 +1,37 @@
 import { assertEquals } from "../deps.ts";
 import type { UnrewriteConfig } from "../model.ts";
 import { mergeConfig } from "../utils/mergeConfig.ts";
-import unrewriteConfig from "../unrewrite.config.ts";
+import defaultConfig from "../unrewrite.config.ts";
 import { partialUserConfig } from "./common/util.ts";
-// import { userConfig } from "../utils/config.ts";
+import { userConfig } from "../utils/config.ts";
 
 Deno.test(mergeConfig.name, () => {
   const config = mergeConfig(partialUserConfig);
+
   assertEquals<UnrewriteConfig>(config, {
     title: partialUserConfig.title,
     titleTemplate: partialUserConfig.titleTemplate,
     baseDir: partialUserConfig.baseDir,
-    baseNovelDir: unrewriteConfig.baseNovelDir,
-    icon: unrewriteConfig.icon,
-    ogpImage: unrewriteConfig.ogpImage,
-    twitterUserName: unrewriteConfig.twitterUserName,
+    baseNovelDir: defaultConfig.baseNovelDir,
+    icon: defaultConfig.icon,
+    ogpImage: defaultConfig.ogpImage,
+    twitterUserName: defaultConfig.twitterUserName,
+    overwriteCss: defaultConfig.overwriteCss,
   });
 });
 
-// TODO: 現在バグのためコメントアウト、バグ修正の際にコメントを外す
-// Deno.test(`${mergeConfig.name} - userConfig`, async () => {
-//   const config = mergeConfig(await userConfig);
-//   const user = await userConfig;
+Deno.test(`${mergeConfig.name} - userConfig`, async () => {
+  const config = await userConfig;
+  const mergedConfig = mergeConfig(config.default);
 
-//   assertEquals<UnrewriteConfig>(config, {
-//     title: user.title,
-//     titleTemplate: user.titleTemplate,
-//     baseDir: user.baseDir,
-//     baseNovelDir: user.baseNovelDir,
-//     icon: user.icon,
-//     ogpImage: user.ogpImage,
-//     twitterUserName: user.twitterUserName,
-//   });
-// });
+  assertEquals<UnrewriteConfig>(mergedConfig, {
+    title: config.default.title,
+    titleTemplate: config.default.titleTemplate,
+    baseDir: config.default.baseDir,
+    baseNovelDir: config.default.baseNovelDir,
+    icon: config.default.icon,
+    ogpImage: config.default.ogpImage,
+    twitterUserName: config.default.twitterUserName,
+    overwriteCss: config.default.overwriteCss,
+  });
+});

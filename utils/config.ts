@@ -13,7 +13,7 @@ const defaultConfig: Required<UnrewriteConfig> = {
   overwriteCss: "",
 };
 
-export const userConfig: Promise<UnrewriteConfig> = import(
+export const userConfig: Promise<{ default: UnrewriteConfig }> = import(
   resolve(Deno.cwd(), "unrewrite.config.ts")
 );
 

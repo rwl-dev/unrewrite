@@ -1,18 +1,23 @@
 import { getFileList, resolve } from "../deps.ts";
 import { Marked } from "./marked.ts";
 import { mergeConfig } from "./mergeConfig.ts";
-import unrewriteConfig, { userConfig } from "./config.ts";
+import defaultConfig, { userConfig } from "./config.ts";
 
 export interface Meta {
   title: string;
   description: string;
 }
 
+const config = await userConfig;
+const baseDir = mergeConfig(config.default).baseDir || defaultConfig.baseDir;
+const baseNovelDir = mergeConfig(config.default).baseNovelDir ||
+  defaultConfig.baseNovelDir;
+
 const novelUrlList = await getFileList(
   resolve(
     Deno.cwd(),
-    mergeConfig(await userConfig).baseDir || unrewriteConfig.baseDir,
-    mergeConfig(await userConfig).baseNovelDir || unrewriteConfig.baseNovelDir,
+    baseDir,
+    baseNovelDir,
   ),
 );
 
@@ -23,7 +28,7 @@ export const getFrontData = async () => {
       `${
         resolve(
           Deno.cwd(),
-          mergeConfig(await userConfig).baseDir || unrewriteConfig.baseDir,
+          baseDir,
           "front.md",
         )
       }`,

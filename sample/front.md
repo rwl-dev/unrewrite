@@ -30,6 +30,25 @@ description: 'Deno novel hosting module(WIP)'
 ## ユーザー設定
 `unrewrite.config.ts`でユーザー設定を定義し、設定変更が可能です。
 
+``` typescript
+import type { UnrewriteConfig } from "https://deno.land/x/unrewrite@x.x.x/model.ts";
+
+const config: UnrewriteConfig = {
+  title: "UnRewrite",
+  titleTemplate: (title) => title ? `${title} | ${config.title}` : config.title,
+  baseDir: "sample",
+  baseNovelDir: "novels",
+  icon: "https://twemoji.maxcdn.com/v/13.1.0/72x72/1f995.png",
+  ogpImage: "https://twemoji.maxcdn.com/v/13.1.0/72x72/1f995.png",
+  twitterUserName: "windchime_yk",
+  overwriteCss: "",
+};
+
+export default config
+```
+
+上記が設定値のテンプレとなっています。
+
 ### title
 Webサイトのタイトル。設定必須。  
 デフォルトは`UnRewrite`
