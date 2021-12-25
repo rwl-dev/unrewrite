@@ -23,3 +23,8 @@ export const parseConfig = async (path: string): Promise<UnrewriteConfig> => {
 export const userConfig = await parseConfig(
   resolve(Deno.cwd(), CONFIG_FILE_NAME),
 );
+
+export const mergeConfig = (userConfig: UnrewriteConfig): UnrewriteConfig => ({
+  ...defaultConfig,
+  ...userConfig,
+});

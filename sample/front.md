@@ -28,23 +28,19 @@ description: 'Deno novel hosting module(WIP)'
 ```
 
 ## ユーザー設定
-`unrewrite.config.ts`でユーザー設定を定義し、設定変更が可能です。
+`unrewrite.config.json`でユーザー設定を定義し、設定変更が可能です。
 
-``` typescript
-import type { UnrewriteConfig } from "https://deno.land/x/unrewrite@x.x.x/model.ts";
-
-const config: UnrewriteConfig = {
-  title: "UnRewrite",
-  titleTemplate: (title) => title ? `${title} | ${config.title}` : config.title,
-  baseDir: "sample",
-  baseNovelDir: "novels",
-  icon: "https://twemoji.maxcdn.com/v/13.1.0/72x72/1f995.png",
-  ogpImage: "https://twemoji.maxcdn.com/v/13.1.0/72x72/1f995.png",
-  twitterUserName: "windchime_yk",
-  overwriteCss: "",
-};
-
-export default config
+``` json
+{
+  "title": "UnRewrite",
+  "titleSplitWord": " | ",
+  "baseDir": "sample",
+  "baseNovelDir": "novels",
+  "icon": "https://twemoji.maxcdn.com/v/13.1.0/72x72/1f995.png",
+  "ogpImage": "https://twemoji.maxcdn.com/v/13.1.0/72x72/1f995.png",
+  "twitterUserName": "windchime_yk",
+  "overwriteCss": ""
+}
 ```
 
 上記が設定値のテンプレとなっています。
@@ -53,9 +49,9 @@ export default config
 Webサイトのタイトル。設定必須。  
 デフォルトは`UnRewrite`
 
-### titleTemplate
-各ページで表示されるタイトル。`front.md`以外では設定必須。  
-デフォルトは`(ページタイトル) => ページタイトル | UnRewrite`。
+### titleSplitWord
+各ページで表示されるタイトルで使用される、ページ名とサイト名の区切り文字。設定必須。  
+デフォルトは` | `。
 
 ### baseDir
 front.mdや小説データのディレクトリが配置されるディレクトリ名。設定任意。  

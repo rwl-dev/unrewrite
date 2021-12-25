@@ -2,7 +2,7 @@ import { getFileList, resolve } from "./deps.ts";
 import type { Handler } from "./deps.ts";
 import { userConfig } from "./utils/config.ts";
 import { getFrontData, novelDataList } from "./utils/getData.ts";
-import { mergeConfig } from "./utils/mergeConfig.ts";
+import { mergeConfig } from "./utils/config.ts";
 import {
   detectStylePath,
   generateNotFoundContents,

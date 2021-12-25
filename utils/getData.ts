@@ -1,7 +1,6 @@
 import { getFileList, resolve } from "../deps.ts";
 import { Marked } from "./marked.ts";
-import { mergeConfig } from "./mergeConfig.ts";
-import { defaultConfig, userConfig } from "./config.ts";
+import { defaultConfig, mergeConfig, userConfig } from "./config.ts";
 
 export interface Meta {
   title: string;
