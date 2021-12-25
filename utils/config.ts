@@ -1,7 +1,7 @@
 import { resolve } from "../deps.ts";
 import type { UnrewriteConfig } from "../model.ts";
 
-const defaultConfig: Required<UnrewriteConfig> = {
+export const defaultConfig: Required<UnrewriteConfig> = {
   title: "UnRewrite",
   titleTemplate: (meta) =>
     meta ? `${meta} | ${defaultConfig.title}` : defaultConfig.title,
@@ -13,8 +13,6 @@ const defaultConfig: Required<UnrewriteConfig> = {
   overwriteCss: "",
 };
 
-export const userConfig: Promise<{ default: UnrewriteConfig }> = import(
+export const userConfig: Promise<{ config: UnrewriteConfig }> = import(
   resolve(Deno.cwd(), "unrewrite.config.ts")
 );
-
-export default defaultConfig;

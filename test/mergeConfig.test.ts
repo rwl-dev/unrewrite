@@ -1,7 +1,7 @@
 import { assertEquals } from "../deps.ts";
 import type { UnrewriteConfig } from "../model.ts";
 import { mergeConfig } from "../utils/mergeConfig.ts";
-import defaultConfig from "../unrewrite.config.ts";
+import { config as defaultConfig } from "../unrewrite.config.ts";
 import { partialUserConfig } from "./common/util.ts";
 import { userConfig } from "../utils/config.ts";
 
@@ -21,17 +21,17 @@ Deno.test(mergeConfig.name, () => {
 });
 
 Deno.test(`${mergeConfig.name} - userConfig`, async () => {
-  const config = await userConfig;
-  const mergedConfig = mergeConfig(config.default);
+  const { config } = await userConfig;
+  const mergedConfig = mergeConfig(config);
 
   assertEquals<UnrewriteConfig>(mergedConfig, {
-    title: config.default.title,
-    titleTemplate: config.default.titleTemplate,
-    baseDir: config.default.baseDir,
-    baseNovelDir: config.default.baseNovelDir,
-    icon: config.default.icon,
-    ogpImage: config.default.ogpImage,
-    twitterUserName: config.default.twitterUserName,
-    overwriteCss: config.default.overwriteCss,
+    title: config.title,
+    titleTemplate: config.titleTemplate,
+    baseDir: config.baseDir,
+    baseNovelDir: config.baseNovelDir,
+    icon: config.icon,
+    ogpImage: config.ogpImage,
+    twitterUserName: config.twitterUserName,
+    overwriteCss: config.overwriteCss,
   });
 });

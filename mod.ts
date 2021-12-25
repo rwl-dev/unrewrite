@@ -20,8 +20,8 @@ const responseInit = (contentType: string): ResponseInit => ({
  */
 export const handler: Handler = async (req) => {
   const { pathname } = new URL(req.url);
-  const config = await userConfig;
-  const mergedConfig = mergeConfig(config.default);
+  const { config } = await userConfig;
+  const mergedConfig = mergeConfig(config);
 
   if (pathname.startsWith("/style.css")) {
     const styleFile = await Deno.readFile(detectStylePath(mergedConfig));

@@ -1,6 +1,6 @@
 import type { UnrewriteConfig } from "./model.ts";
 
-const config: UnrewriteConfig = {
+export const config: UnrewriteConfig = {
   title: "UnRewrite",
   titleTemplate: (title) => title ? `${title} | ${config.title}` : config.title,
   baseDir: "sample",
@@ -10,5 +10,3 @@ const config: UnrewriteConfig = {
   twitterUserName: "windchime_yk",
   overwriteCss: "",
 };
-
-export default config;
