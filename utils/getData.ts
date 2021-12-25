@@ -8,9 +8,8 @@ export interface Meta {
   description: string;
 }
 
-const { config } = await userConfig;
-const baseDir = mergeConfig(config).baseDir || defaultConfig.baseDir;
-const baseNovelDir = mergeConfig(config).baseNovelDir ||
+const baseDir = mergeConfig(userConfig).baseDir || defaultConfig.baseDir;
+const baseNovelDir = mergeConfig(userConfig).baseNovelDir ||
   defaultConfig.baseNovelDir;
 
 const novelUrlList = await getFileList(

@@ -1,8 +1,8 @@
 import { assertEquals } from "../deps.ts";
+import { allSettedConfig } from "./common/util.ts";
 import { userConfig } from "../utils/config.ts";
+import type { UnrewriteConfig } from "../model.ts";
 
-const unrewriteConfig = import("../unrewrite.config.ts");
-
-Deno.test("get userConfig", async () => {
-  assertEquals(await userConfig, await unrewriteConfig);
+Deno.test("get userConfig", () => {
+  assertEquals<UnrewriteConfig>(userConfig, allSettedConfig);
 });

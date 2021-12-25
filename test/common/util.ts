@@ -1,8 +1,8 @@
 import { UnrewriteConfig } from "../../model.ts";
 
-export const userConfig: Required<UnrewriteConfig> = {
-  title: "Sample Test",
-  titleTemplate: (title) => `${title} | ${userConfig.title}`,
+export const allSettedConfig: Required<UnrewriteConfig> = {
+  title: "UnRewrite",
+  titleSplitWord: " | ",
   baseDir: "sample",
   baseNovelDir: "novels",
   icon: "https://twemoji.maxcdn.com/v/13.1.0/72x72/1f995.png",
@@ -13,6 +13,6 @@ export const userConfig: Required<UnrewriteConfig> = {
 
 export const partialUserConfig: UnrewriteConfig = {
   title: "Test Utils",
-  titleTemplate: (title) => `${title} - ${partialUserConfig.title}`,
+  titleSplitWord: " - ",
   baseDir: "sample",
 };
