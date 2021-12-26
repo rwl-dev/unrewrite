@@ -13,11 +13,24 @@ export const detectStylePath = (config: UnrewriteConfig) =>
     ? resolve(Deno.cwd(), config.overwriteCss)
     : "./assets/style.css";
 
+const titleTemplate = (
+  { pageTitle, splitWord, siteName }: {
+    pageTitle: string;
+    splitWord: string;
+    siteName: string;
+  },
+) => pageTitle ? `${pageTitle}${splitWord}${siteName}` : `${siteName}`;
+
 const generateHeadTag = (meta: Meta, config: UnrewriteConfig): string => {
+  const title = titleTemplate({
+    pageTitle: meta.title,
+    splitWord: config.titleSplitWord,
+    siteName: config.title,
+  });
   return h(
     "head",
     h("meta", { charset: "UTF-8" }),
-    h("title", config.titleTemplate(meta.title)),
+    h("title", title),
     h("meta", { name: "description", content: meta.description }),
     h("link", { rel: "shortcut icon", href: config.icon ?? "" }),
     h("meta", { name: "generator", content: "UnRewrite" }),
@@ -28,7 +41,7 @@ const generateHeadTag = (meta: Meta, config: UnrewriteConfig): string => {
     h("meta", { property: "og:type", content: "website" }),
     h("meta", {
       property: "og:title",
-      content: config.titleTemplate(meta.title),
+      content: title,
     }),
     h("meta", { property: "og:description", content: meta.description }),
     h("meta", { property: "og:site_name", content: config.title }),

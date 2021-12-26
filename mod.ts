@@ -2,7 +2,7 @@ import { getFileList, resolve } from "./deps.ts";
 import type { Handler } from "./deps.ts";
 import { userConfig } from "./utils/config.ts";
 import { getFrontData, novelDataList } from "./utils/getData.ts";
-import { mergeConfig } from "./utils/mergeConfig.ts";
+import { mergeConfig } from "./utils/config.ts";
 import {
   detectStylePath,
   generateNotFoundContents,
@@ -20,7 +20,7 @@ const responseInit = (contentType: string): ResponseInit => ({
  */
 export const handler: Handler = async (req) => {
   const { pathname } = new URL(req.url);
-  const mergedConfig = mergeConfig(await userConfig);
+  const mergedConfig = mergeConfig(userConfig);
 
   if (pathname.startsWith("/style.css")) {
     const styleFile = await Deno.readFile(detectStylePath(mergedConfig));

@@ -1,8 +1,8 @@
 export interface UnrewriteConfig {
   /** Webサイトのタイトル */
   title: string;
-  /** 各ページで切り替わるWebサイトのタイトル */
-  titleTemplate: (title: string) => string;
+  /** WebページのタイトルとWebサイトのタイトルの区切り文字 */
+  titleSplitWord: string;
   /**
    * 参照する小説ディレクトリ
    * デフォルトは`Deno.cwd()`
