@@ -24,11 +24,7 @@ export const handler: Handler = async (req) => {
 
   if (pathname.startsWith("/style.css")) {
     const styleFile = await Deno.readFile(detectStylePath(mergedConfig));
-    return new Response(styleFile, {
-      headers: {
-        "content-type": "text/css",
-      },
-    });
+    return new Response(styleFile, responseInit("text/css"));
   }
 
   const imagePathUrlPattern = new URLPattern({ pathname: "/images/:path" });
