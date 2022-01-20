@@ -24,25 +24,20 @@ export const handler: Handler = async (req) => {
 
   if (pathname.startsWith("/style.css")) {
     const styleFile = await Deno.readFile(detectStylePath(mergedConfig));
-    return new Response(styleFile, {
-      headers: {
-        "content-type": "text/css",
-      },
-    });
+    return new Response(styleFile, responseInit("text/css"));
   }
 
   const imagePathUrlPattern = new URLPattern({ pathname: "/images/:path" });
   const imagePathUrlPathname =
     imagePathUrlPattern.exec(req.url)?.pathname.groups.path;
   const imagePathArray = imagePathUrlPathname?.split(".") ?? [];
-  const imageDir = resolve(Deno.cwd(), "sample", "images");
+  const imageDir = resolve(Deno.cwd(), mergedConfig.baseDir ?? "", "images");
   const imageList = await getFileList(imageDir);
 
   for (const image of imageList) {
     if (imagePathUrlPattern.test(req.url) && req.url.includes(image.name)) {
       const imageFile = await Deno.readFile(
-        // TODO: 現在、sampleを直に指定しているので、パス分岐の改善を行なう
-        resolve(Deno.cwd(), "sample", "images", imagePathUrlPathname ?? ""),
+        resolve(imageDir, imagePathUrlPathname ?? ""),
       );
 
       if (imagePathArray[1] === "jpg" || imagePathArray[1] === "jpeg") {
