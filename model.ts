@@ -25,6 +25,16 @@ export interface UnrewriteConfig {
   overwriteCss?: string;
 }
 
+export type MimeType =
+  | "text/plain"
+  | "text/html"
+  | "text/css"
+  | "text/javascript"
+  | "text/csv"
+  | "image/jpeg"
+  | "image/png"
+  | "image/svg+xml";
+
 /** SVG固有の要素名定義マップ */
 type HTMLSvgElementTagNameMap =
   | "svg"

@@ -8,8 +8,9 @@ import {
   generateNotFoundContents,
   renderHTML,
 } from "./utils/render.ts";
+import type { MimeType } from "./model.ts";
 
-const responseInit = (contentType: string): ResponseInit => ({
+const responseInit = (contentType: MimeType): ResponseInit => ({
   headers: { "content-type": contentType },
 });
 
