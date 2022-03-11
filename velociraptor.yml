@@ -5,6 +5,7 @@ scripts:
     allow:
       - read
       - net
+    noCheck: true
     watch: true
   test:
     desc: Runs unit test

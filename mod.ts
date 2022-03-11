@@ -7,7 +7,7 @@ import {
   detectStylePath,
   generateNotFoundContents,
   renderHTML,
-} from "./utils/render.ts";
+} from "./utils/render.tsx";
 import type { MimeType } from "./model.ts";
 
 const responseInit = (contentType: MimeType): ResponseInit => ({
