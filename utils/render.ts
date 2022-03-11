@@ -69,6 +69,7 @@ const generateBodyTag = (config: UnrewriteConfig, content: string): string => {
     "body",
     generateHeaderTag(config),
     h("main", content),
+    h("script", { src: "/script.js", defer: true }),
   );
 };
 
