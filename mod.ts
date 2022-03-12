@@ -1,5 +1,5 @@
-import { getFileList, resolve } from "./deps.ts";
-import type { Handler } from "./deps.ts";
+import { getFileList, resolve, statusCode } from "./deps.ts";
+import type { Handler, StatusCodeNumber } from "./deps.ts";
 import { userConfig } from "./utils/config.ts";
 import { getFrontData, novelDataList } from "./utils/getData.ts";
 import { mergeConfig } from "./utils/config.ts";
@@ -10,8 +10,12 @@ import {
 } from "./utils/render.ts";
 import type { MimeType } from "./model.ts";
 
-const responseInit = (contentType: MimeType): ResponseInit => ({
+const responseInit = (
+  contentType: MimeType,
+  status: StatusCodeNumber = 200,
+): ResponseInit => ({
   headers: { "content-type": contentType },
+  status,
 });
 
 /**
@@ -88,6 +92,6 @@ export const handler: Handler = async (req) => {
       mergedConfig,
       generateNotFoundContents(),
     ),
-    responseInit("text/html"),
+    responseInit("text/html", statusCode.notFound),
   );
 };
