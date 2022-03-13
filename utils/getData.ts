@@ -1,11 +1,7 @@
 import { getFileList, resolve } from "../deps.ts";
 import { Marked } from "./marked.ts";
 import { defaultConfig, mergeConfig, userConfig } from "./config.ts";
-
-export interface Meta {
-  title: string;
-  description: string;
-}
+import { Meta } from "../model.ts";
 
 const baseDir = mergeConfig(userConfig).baseDir || defaultConfig.baseDir;
 const baseNovelDir = mergeConfig(userConfig).baseNovelDir ||
