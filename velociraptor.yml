@@ -5,12 +5,14 @@ scripts:
     allow:
       - read
       - net
+    noCheck: true
     watch: true
   test:
     desc: Runs unit test
     cmd: deno test --ignore=test/e2e
     allow:
       - read
+    noCheck: true
   e2e:
     desc: Runs E2E test
     cmd: deno test test/e2e --failfast

@@ -1,7 +1,8 @@
 export { Marked, Renderer } from "https://deno.land/x/markdown@v2.0.0/mod.ts";
 export { resolve } from "https://deno.land/std@0.108.0/path/mod.ts";
 export { getFileList } from "https://pax.deno.dev/windchime-yk/deno-util@v1.1.1/file.ts";
-export { tag } from "https://x.nest.land/markup-tag@0.3.0/mod.ts";
+export { h } from "https://x.lcas.dev/preact@10.5.12/mod.js";
+export { render } from "https://x.lcas.dev/preact@10.5.12/ssr.js";
 export { statusCode } from "https://pax.deno.dev/windchime-yk/deno-util@v1.1.1/server.ts";
 export type { StatusCodeNumber } from "https://pax.deno.dev/windchime-yk/deno-util@v1.1.1/server.ts";
 export { serve } from "https://deno.land/std@0.117.0/http/server.ts";
