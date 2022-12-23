@@ -1,11 +1,11 @@
-import { getFileList, resolve, statusCode } from "./deps.ts";
+import { getFileList, resolve } from "./deps.ts";
 import type { Handler, StatusCodeNumber } from "./deps.ts";
 import { userConfig } from "./utils/config.ts";
 import { getFrontData, novelDataList } from "./utils/getData.ts";
 import { mergeConfig } from "./utils/config.ts";
 import {
   detectStylePath,
-  generateNotFoundContents,
+  NotFoundContents,
   renderHTML,
 } from "./utils/render.tsx";
 import type { MimeType } from "./model.ts";
@@ -58,40 +58,17 @@ export const handler: Handler = async (req) => {
   }
 
   if (pathname === "/") {
-    return new Response(
-      renderHTML(
-        (await getFrontData()).meta,
-        mergedConfig,
-        (await getFrontData()).content,
-      ),
-      responseInit("text/html"),
-    );
+    const { meta, content } = await getFrontData();
+    return renderHTML(meta, mergedConfig, content);
   }
 
   for (const novelData of novelDataList) {
     if (
-      pathname.includes(novelData!.path)
+      novelData && pathname.includes(novelData!.path)
     ) {
-      return new Response(
-        renderHTML(
-          novelData!.meta,
-          mergedConfig,
-          novelData!.content,
-        ),
-        responseInit("text/html"),
-      );
+      return renderHTML(novelData.meta, mergedConfig, novelData.content);
     }
   }
 
-  return new Response(
-    renderHTML(
-      {
-        title: "404 Not Found",
-        description: "このURLにコンテンツはありません",
-      },
-      mergedConfig,
-      generateNotFoundContents(),
-    ),
-    responseInit("text/html", statusCode.notFound),
-  );
+  return NotFoundContents;
 };

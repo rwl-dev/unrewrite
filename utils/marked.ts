@@ -11,10 +11,10 @@ class UnrewriteRenderer extends Renderer {
       emphasis: /《《(.+?)》》/g,
     };
 
-    if (regex.ruby.test(text)) return text.replace(regex.ruby, base.ruby);
-    else if (regex.emphasis.test(text)) {
-      return text.replace(regex.emphasis, base.emphasis);
-    } else return text;
+    return text.replace(regex.ruby, base.ruby).replace(
+      regex.emphasis,
+      base.emphasis,
+    );
   }
 }
 
