@@ -1,0 +1,8 @@
+{
+  "tasks": {
+    "dev": "deno run --allow-net --allow-read --watch --no-lock sample/server.ts", // Run the server
+    "test": "deno test --allow-read --no-check --no-lock --ignore=test/e2e", // Runs Unit test
+    "e2e": "deno test --allow-net --allow-env --allow-run --no-check --no-lock test/e2e --failfast", // Runs E2E test
+    "fmt": "deno fmt --ignore=README.md,sample/front.md,sample/novels/" // Format Code
+  }
+}

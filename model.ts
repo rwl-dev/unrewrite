@@ -45,11 +45,6 @@ export interface InnerHTMLHelperParams {
   html: string;
 }
 
-export interface HeadProps {
-  meta: Meta;
-  config: UnrewriteConfig;
-}
-
 export interface HeaderProps {
   config: UnrewriteConfig;
 }
